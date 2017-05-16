@@ -25,7 +25,7 @@ public class BaseDao {
 		}
 		
 		try {
-			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/mmxresmis","root","123");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/mmxresmis","root","109458");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,7 @@
 package mmxresmis.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,7 +25,7 @@ import mmxresmis.biz.FoodBiz;
 import mmxresmis.biz.impl.FoodBizImpl;
 import mmxresmis.entity.Food;
 
-public class HFoodManagerView extends JFrame {
+public class HFoodManagerView extends JInternalFrame {
 	private static final long serialVersionUID = 4279455055264955621L;
 	private JTable table = null;
 	private JPanel panel = null;// 面板
@@ -59,6 +61,7 @@ public class HFoodManagerView extends JFrame {
 		// 让JTable绑定数据模型呈现数据
 		refreshTable(foods);
 		scrollPane = new JScrollPane(table);// 创建显示表格的滚动面板
+		scrollPane.setPreferredSize(new Dimension(200,200));
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 
 		label2 = new JLabel("菜品类型");
@@ -93,7 +96,9 @@ public class HFoodManagerView extends JFrame {
 
 		setTitle("菜品管理界面");
 		setBounds(200, 120, 880, 420);// setBounds(x,y,width,height)
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 退出关闭窗体功能
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);// 退出关闭窗体功能
+		this.setIconifiable(true);
+		this.setClosable(true);
 		this.setVisible(true);
 	}
 

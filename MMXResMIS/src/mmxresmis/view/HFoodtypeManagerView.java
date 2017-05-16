@@ -1,6 +1,7 @@
 package mmxresmis.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,7 +28,7 @@ import mmxresmis.entity.Food;
 import mmxresmis.entity.Foodtype;
 import mmxresmis.entity.User;
 
-public class HFoodtypeManagerView extends JFrame {
+public class HFoodtypeManagerView extends JInternalFrame {
 	private static final long serialVersionUID = -2189578035742248674L;
 	private DefaultTableModel tableModel = null;// 表格模型
 	private JTable table = null;// 表格对象
@@ -35,10 +37,8 @@ public class HFoodtypeManagerView extends JFrame {
 	private JPanel panel2 = null;// 面板
 	private JScrollPane scrollPane = null;// 滚动面板
 
-	private JLabel label1 = null;
 	private JLabel label2 = null;
 
-	private JTextField textField1 = null;
 	private JTextField textField2 = null;
 
 	private JButton btn_add = null;// 添加按钮
@@ -58,11 +58,12 @@ public class HFoodtypeManagerView extends JFrame {
 		// 让JTable绑定数据模型呈现数据
 		refreshTable(foods);
 		scrollPane = new JScrollPane(table);// 创建显示表格的滚动面板
+		scrollPane.setPreferredSize(new Dimension(200,200));
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		
 		
 		label2 = new JLabel("菜品类型名称");
 
-		textField1 = new JTextField(5);
 		textField2 = new JTextField(5);
 
 		btn_add = new JButton("添加新菜品类型");// 添加用户
@@ -80,9 +81,13 @@ public class HFoodtypeManagerView extends JFrame {
 		getContentPane().add(panel, BorderLayout.SOUTH);
 
 		setTitle("菜品类型管理界面");
-		setBounds(180, 200, 440, 400);// setBounds(x,y,width,height)
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 退出关闭窗体功能
+//		setBounds(180, 200, 440, 400);// setBounds(x,y,width,height)
+		
+//		setBounds(200, 120, 200, 200);// setBounds(x,y,width,height)
+		this.setIconifiable(true);
+		this.setClosable(true);
 		this.setVisible(true);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);// 退出关闭窗体功能
 	}
 
 	private void registerListener() {
@@ -91,8 +96,9 @@ public class HFoodtypeManagerView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int[] seleteRows = table.getSelectedRows();
 				List<Foodtype> fd=new ArrayList<>();
+				
 				for (int row = 0; row < seleteRows.length; row++) {
-					fd.add(foods.get(row));
+					fd.add(foods.get(seleteRows[row]));
 				}
 				for (Foodtype food : fd) {
 					fooottypebiz.delFoodtype(food.getFtypeid());

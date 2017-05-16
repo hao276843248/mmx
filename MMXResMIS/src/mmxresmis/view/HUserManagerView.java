@@ -58,7 +58,7 @@ public class HUserManagerView extends JInternalFrame {
 	}
 	private void init() {
 		setTitle("会员管理界面");
-		setBounds(200, 120, 560, 420);// setBounds(x,y,width,height)
+//		setBounds(200, 120, 560, 420);// setBounds(x,y,width,height)
 		this.setIconifiable(true);
 		this.setClosable(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);// 退出关闭窗体功能

@@ -5,7 +5,7 @@ import mmxresmis.view.LoginView;
 public class Test {
 
 	public static void main(String[] args) {
-
+//123123
 		new LoginView(); 
 		// new UserRegisterView();
 		// new KaitaiView();

@@ -30,7 +30,7 @@ import mmxresmis.entity.User;
 
 public class HUserManagerView extends JInternalFrame {
 	private static final long serialVersionUID = -4733113410758843245L;
-	private JPanel panelnr = null;// neirong面板
+	private JPanel panelnr = null;// neirong面板11111111111
 	private JPanel panelBtoon = null;// 按钮组面板
 	private JPanel paneltable = null;// 面板
 	private JTable table = null;

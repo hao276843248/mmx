@@ -10,7 +10,7 @@ public class GuestfoodDaoImpl extends BaseDao implements GuestfoodDao {
 
 	@Override
 	public boolean saveGuestfood(Guestfood guestfood) {
-		String sql="insert into tb_Guestfood(foodnum,foodname,foodsum,foodallprice,wname,beizhu,zhuotainame,gdatetime)values(?,?,?,?,?,?,?,?)";
+		String sql="INSERT INTO mmxresmis.guestfood ( foodnum, foodname, foodsum, foodallprice, wname, beizhu, zhuotainum, gdatetime, foodprice) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		List<Object> params=new ArrayList<Object>();
 		params.add(guestfood.getFoodnum());
 		params.add(guestfood.getFoodname());
@@ -19,13 +19,14 @@ public class GuestfoodDaoImpl extends BaseDao implements GuestfoodDao {
 		params.add(guestfood.getWname());
 		params.add(guestfood.getBeizhu());
 		params.add(guestfood.getZhuotainum());
-		params.add(guestfood.getGatetime());//
+		params.add(guestfood.getGdatetime());//
+		params.add(guestfood.getFoodprice());
 		return this.operUpdate(sql, params);
 	}
 
 	@Override
 	public boolean delGuestfood(int gid) {
-		String sql="delete from tb_Guestfood where gid=?" ;
+		String sql="delete from guestfood where gid=?" ;
 		List<Object> params=new ArrayList<Object>();
 		params.add(gid);
 		return this.operUpdate(sql, params);
@@ -33,7 +34,7 @@ public class GuestfoodDaoImpl extends BaseDao implements GuestfoodDao {
 
 	@Override
 	public boolean updateGuestfood(Guestfood guestfood) {
-		String sql="updata tb_Guestfood set foodnum=?,foodname=?,foodsum=?,foodallprice=?,wname=?,beizhu=?,zhuotainame=?,gdatetime=? where gid=?";
+		String sql="UPDATE mmxresmis.guestfood SET foodnum=?, foodname=?, foodsum=?, foodallprice=?, wname=?, beizhu=?, zhuotainum=?, gdatetime=?, foodprice=? WHERE gid=?";
 		List<Object> params=new ArrayList<Object>();
 		params.add(guestfood.getFoodnum());
 		params.add(guestfood.getFoodname());
@@ -42,33 +43,24 @@ public class GuestfoodDaoImpl extends BaseDao implements GuestfoodDao {
 		params.add(guestfood.getWname());
 		params.add(guestfood.getBeizhu());
 		params.add(guestfood.getZhuotainum());
-		params.add(guestfood.getGatetime());//
+		params.add(guestfood.getGdatetime());//
+		params.add(guestfood.getFoodprice());//
 		params.add(guestfood.getGid());
 		return this.operUpdate(sql, params);
 	}
 
 	@Override
-	public Guestfood queryGuestfood(Guestfood guestfood) {
+	public List<Guestfood> queryGuestfood(String id){//²éÑ¯¹Ë¿Í¶©µ¥
 		List<Guestfood> gList=null;
-		String sql="select gid,foodnum,foodname,foodsum,foodallprice,wname,beizhu,zhuotainame,gdatetime from tb_Guestfood where foodnum=?and foodname=? and foodsum=? and foodallprice =? and wname =? and beizhu =? and zhuotainame =? and gdatetime=?";
+		String sql="SELECT gid, foodnum, foodname, foodsum, foodallprice, wname, beizhu, zhuotainum, gdatetime,foodprice FROM guestfood  where zhuotainum=?";
 		List<Object> params=new ArrayList<Object>();
-		params.add(guestfood.getFoodnum());
-		params.add(guestfood.getFoodname());
-		params.add(guestfood.getFoodsum());
-		params.add(guestfood.getFoodallprice());//
-		params.add(guestfood.getWname());
-		params.add(guestfood.getBeizhu());
-		params.add(guestfood.getZhuotainum());
-		params.add(guestfood.getGatetime());//
+		params.add(id);
 		try {
 			gList=this.operQuery(sql, params,Guestfood.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(gList.size()>0){
-			return gList.get(0);
-		}
-		return null;
+		return gList;
 	}
 
 }

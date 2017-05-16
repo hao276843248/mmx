@@ -1,5 +1,7 @@
 package mmxresmis.biz.impl;
 
+import java.util.List;
+
 import mmxresmis.biz.GuestfoodBiz;
 import mmxresmis.dao.GuestfoodDao;
 import mmxresmis.dao.impl.GuestfoodDaoImpl;
@@ -26,9 +28,10 @@ public class GuestfoodBizImpl implements GuestfoodBiz {
 		return guestfoodDao.updateGuestfood(guestfood);
 	}
 
+
 	@Override
-	public Guestfood queryGuestfood(Guestfood guestfood) {
-		return guestfoodDao.queryGuestfood(guestfood);
+	public List<Guestfood> queryGuestfood(String id) {
+		return guestfoodDao.queryGuestfood(id);
 	}
 
 }

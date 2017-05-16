@@ -65,32 +65,8 @@ public class HAdminMainView extends JFrame {
 	private JLabel lb_tel = null;
 	private JLabel lb_addr = null;
 
-//	private JLabel deskLabel1 = null;// 存放图片的Label
-//	private JLabel deskLabel2 = null;
-//	private JLabel deskLabel3 = null;
-//	private JLabel deskLabel4 = null;
-//	private JLabel deskLabel5 = null;// 存放图片的Label
-//	private JLabel deskLabel6 = null;
-//	private JLabel deskLabel7 = null;
-//	private JLabel deskLabel8 = null;
-//	private JLabel deskLabel9 = null;// 存放图片的Label
-//	private JLabel deskLabel10 = null;
-//	private JLabel deskLabel11 = null;
-//	private JLabel deskLabel12 = null;
-//	private JLabel deskLabel13 = null;// 存放图片的Label
-//	private JLabel deskLabel14 = null;
-
-	private JPopupMenu popupMenu1;
 	private JPopupMenu popupMenu2;
 
-	private JMenuItem jibenxinxi = null;// 桌台基本信息
-	// private JMenuItem xiugaiZT=null;//修改桌台
-	private JMenuItem deleteZT = null;// 删除桌台
-	private JMenuItem ztxiangqing = null;// 状态详情
-	// private JMenuItem kaitai=null;//开台
-	// private JMenuItem cancelkaitai=null;//取消开台
-	// private JMenuItem xiaofeichaxun=null;//消费查询
-	// private JMenuItem jiezhang=null;//结账
 	private JMenuItem addZT = null;// 添加桌台
 	private List<Zhuotai> zhuotaiList = null;
 	private ZhuotaiBiz zhuotaiBiz = new ZhuotaiBizImpl();
@@ -119,15 +95,12 @@ public class HAdminMainView extends JFrame {
 		for (int i = 0; i < zhuotaiList.size(); i++) {
 			JPopupMenu popupMenu = new JPopupMenu();
 			JMenuItem deleteZT = new JMenuItem("删除桌台");
-			JMenuItem ztxiangqing = new JMenuItem("桌台状态");
 			JMenuItem jibenxinxi = new JMenuItem("桌台基本信息");
 			
 			popupMenu.add(deleteZT);
-			popupMenu.add(ztxiangqing);
 			popupMenu.add(jibenxinxi);
 			JPanel panel7 = new JPanel();
 			deleteZT.setEnabled(true);
-			ztxiangqing.setEnabled(true);
 			jibenxinxi.setEnabled(true);
 			JLabel deskLabel = new JLabel();
 			if (zhuotaiList.get(i).getZhuotaizt().equals("shiyong")) {
@@ -145,7 +118,6 @@ public class HAdminMainView extends JFrame {
 			panel7.add(deskLabel);
 			panel_right.add(panel7);
 			deleteZT.addActionListener(ListenerDeleteZT(zhuotaiList.get(i)));
-			ztxiangqing.addActionListener(ListenerZtxiangqing(zhuotaiList.get(i)));
 			jibenxinxi.addActionListener(ListenerJibenxinxi(zhuotaiList.get(i)));
 		}
 
@@ -155,7 +127,6 @@ public class HAdminMainView extends JFrame {
 		// splitPane.setContinuousLayout(true);//当用户操作分割线时系统会重新绘图形???没有影响
 		splitPane.setDividerSize(10);// 设置分隔线大小为10个单位 ？？？
 
-		popupMenu1 = new JPopupMenu();
 		popupMenu2 = new JPopupMenu();
 
 		// 初始化菜单
@@ -295,35 +266,6 @@ public class HAdminMainView extends JFrame {
 			}
 		});
 
-//		deskLabel1.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				// 如果点击右键 显示子菜单
-//				if (e.getButton() == MouseEvent.BUTTON3) {
-//					// 获取相对于窗口的逻辑位置
-//					Point p = e.getPoint();
-//					popupMenu1.show(e.getComponent(), p.x, p.y);
-//
-//				}
-//				// 否则不显示子菜单
-//				else {
-//					popupMenu1.setVisible(false);
-//				}
-//			}
-//		});
-
-		
-
-		deleteZT.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(frame, "确定删除此桌台?") == JOptionPane.YES_OPTION) {
-					// System.exit(0); //？？？？？？？？？？？？？？？？？、、
-					// int[] seleteRows=deleteZT.getSelectedRows();
-				}
-
-			}
-		});
 	}
 
 	/**
@@ -351,33 +293,20 @@ public class HAdminMainView extends JFrame {
 	
 	/***
 	 * 
-	 * ListenerDeleteZT
+	 * 删除桌面
 	 * */
-	public ActionListener ListenerDeleteZT(Zhuotai Zhuotai){
+	public ActionListener ListenerDeleteZT(Zhuotai zhuotai){
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(frame, "确定删除此桌台?") == JOptionPane.YES_OPTION) {
-					// System.exit(0); //？？？？？？？？？？？？？？？？？、、
-					// int[] seleteRows=deleteZT.getSelectedRows();
-				}
-
-			}
-		};
-	}
-	
-
-	/***
-	 * 
-	 * 桌台详情
-	 * */
-	public ActionListener ListenerZtxiangqing(Zhuotai Zhuotai){
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(frame, "确定删除此桌台?") == JOptionPane.YES_OPTION) {
-					// System.exit(0); //？？？？？？？？？？？？？？？？？、、
-					// int[] seleteRows=deleteZT.getSelectedRows();
+					if("shiyong".equals(zhuotai.getZhuotaizt())){
+						JOptionPane.showMessageDialog(null, "此桌台正在使用不能删除！", "警告",JOptionPane.WARNING_MESSAGE);  
+					}else{
+						zhuotaiBiz.delZhuotai(zhuotai.getZtid());
+						//刷新界面
+					}
+					System.out.println(zhuotai);
 				}
 
 			}

@@ -112,26 +112,6 @@ public class HUserManagerView extends JInternalFrame {
 
 	private void registerListener() {
 
-		// btn_del.addActionListener(new ActionListener(){
-		// @Override
-		// public void actionPerformed(ActionEvent e) {
-		// int[] seleteRows=table.getSelectedRows();
-		// for(int row=0;row<seleteRows.length;row++){
-		// tableModel.removeRow(seleteRows[row]- row);
-		// }
-		// }
-		// });
-
-		// btn_del.addActionListener(new ActionListener(){
-		// @Override
-		// public void actionPerformed(ActionEvent e) {
-		// int[] seleteRows=table.getSelectedRows();
-		// for(int row=0;row<seleteRows.length;row++){
-		// tableModel.removeRow(seleteRows[row]- row);
-		// }
-		// }
-		// });
-
 		btn_del.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -246,14 +226,12 @@ public class HUserManagerView extends JInternalFrame {
 		// JTable数据的列数
 		@Override
 		public int getColumnCount() {
-			System.out.println("getColumnCount");
 			return 4;
 		}
 
 		// 设置JTable的显示的列名
 		@Override
 		public String getColumnName(int columnIndex) {
-			System.out.println("getColumnName"+columnIndex);
 			if (columnIndex == 0) {
 				return "用户id";
 			} else if (columnIndex == 1) {

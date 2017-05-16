@@ -240,54 +240,54 @@ public class UserMainView1 extends JFrame {
 			}    		
     	});
  
-    	kaitai.addActionListener(new ActionListener(){ 	
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				KaitaiView ktv=new KaitaiView();
-				panel_right.add(ktv);//把指定的视图添加到桌面容器中
-				ktv.toFront();//视图显示在最前面				
-			}   		
-    	});
-    	
-//    	cancelkaitai.addActionListener(new ActionListener(){ 	
-//    			@Override
-//    			public void actionPerformed(ActionEvent e) {
-//    				KaitaiView ktv=new KaitaiView();
-//    				panel_right.add(ktv);//把指定的视图添加到桌面容器中
-//    				ktv.toFront();//视图显示在最前面				
-//    			}   		
-//        	});
-    	
-    	orderitem.addActionListener(new ActionListener(){ 	
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Order_itemView oim=new Order_itemView();
-				panel_right.add(oim);//把指定的视图添加到桌面容器中
-				oim.toFront();//视图显示在最前面				
-			}   		
-    	});
-    	
-//    	xiaofeichaxun.addActionListener(new ActionListener(){ 	
+//    	kaitai.addActionListener(new ActionListener(){ 	
 //			@Override
 //			public void actionPerformed(ActionEvent e) {
-//				Order_itemView oim=new Order_itemView();
+//				KaitaiView ktv=new KaitaiView();
+//				panel_right.add(ktv);//把指定的视图添加到桌面容器中
+//				ktv.toFront();//视图显示在最前面				
+//			}   		
+//    	});
+//    	
+////    	cancelkaitai.addActionListener(new ActionListener(){ 	
+////    			@Override
+////    			public void actionPerformed(ActionEvent e) {
+////    				KaitaiView ktv=new KaitaiView();
+////    				panel_right.add(ktv);//把指定的视图添加到桌面容器中
+////    				ktv.toFront();//视图显示在最前面				
+////    			}   		
+////        	});
+//    	
+//    	orderitem.addActionListener(new ActionListener(){ 	
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+////				Order_itemView oim=new Order_itemView();
 //				panel_right.add(oim);//把指定的视图添加到桌面容器中
 //				oim.toFront();//视图显示在最前面				
 //			}   		
 //    	});
-    	
-    	jiezhang.addActionListener(new ActionListener(){ 	
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JiezhangView jzv=new JiezhangView();
-				panel_right.add(jzv);//把指定的视图添加到桌面容器中
-				jzv.toFront();//视图显示在最前面				
-			}   		
-    	});
-    	
-    	
+//    	
+////    	xiaofeichaxun.addActionListener(new ActionListener(){ 	
+////			@Override
+////			public void actionPerformed(ActionEvent e) {
+////				Order_itemView oim=new Order_itemView();
+////				panel_right.add(oim);//把指定的视图添加到桌面容器中
+////				oim.toFront();//视图显示在最前面				
+////			}   		
+////    	});
+//    	
+//    	jiezhang.addActionListener(new ActionListener(){ 	
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+////				JiezhangView jzv=new JiezhangView();
+//				panel_right.add(jzv);//把指定的视图添加到桌面容器中
+//				jzv.toFront();//视图显示在最前面				
+//			}   		
+//    	});
+//    	
+//    	
     }
-
-    
-    
+//
+//    
+//    
 }

@@ -94,54 +94,43 @@ public class UserMainView extends JFrame {
 			popupMenu.add(xiaofeichaxun);
 			popupMenu.add(jiezhang);
 			JPanel panel7 = new JPanel();
+			JLabel deskLabel = new JLabel();
+			ImageIcon image1=null;
 			if (zhuotaiList.get(i).getZhuotaizt().equals("shiyong")) {
-				ImageIcon image1 = new ImageIcon("src/images/a_2.jpg");
-				JLabel deskLabel = new JLabel(image1);
-				deskLabel.setBounds(0, 0, image1.getIconWidth(), image1.getIconHeight());
-				deskLabel.addMouseListener(caiDan(popupMenu));
-				panel7.add(deskLabel);
-				panel_right.add(panel7);
-
+				image1 = new ImageIcon("src/images/a_2.jpg");
 				kaitai.setEnabled(false);
 				cancelkaitai.setEnabled(false);
 				orderitem.setEnabled(true);
 				xiaofeichaxun.setEnabled(true);
 				jiezhang.setEnabled(true);
-
-				kaitai.addActionListener(
-						ListenerKaitai(zhuotaiList.get(i), kaitai, cancelkaitai, orderitem, xiaofeichaxun, jiezhang));
-				cancelkaitai.addActionListener(ListenerCancelkaitai(zhuotaiList.get(i).getZtid(), kaitai, cancelkaitai,
-						orderitem, xiaofeichaxun, jiezhang));
-				orderitem.addActionListener(ListenerOrderitem(zhuotaiList.get(i).getZtid(), kaitai, cancelkaitai,
-						orderitem, xiaofeichaxun, jiezhang));
-				xiaofeichaxun.addActionListener(ListenerXiaofeichaxun(zhuotaiList.get(i).getZtid(), kaitai,
-						cancelkaitai, orderitem, xiaofeichaxun, jiezhang));
-				jiezhang.addActionListener(ListenerJiezhang(zhuotaiList.get(i).getZtid(), kaitai, cancelkaitai,
-						orderitem, xiaofeichaxun, jiezhang));
 			} else {
-				ImageIcon image1 = new ImageIcon("src/images/a_1.jpg");
-				JLabel deskLabel = new JLabel(image1);
+				image1 = new ImageIcon("src/images/a_1.jpg");
 				deskLabel.setBounds(0, 0, image1.getIconWidth(), image1.getIconHeight());
 				deskLabel.addMouseListener(caiDan(popupMenu));
 				panel7.add(deskLabel);
 				panel_right.add(panel7);
-
 				cancelkaitai.setEnabled(false);
 				orderitem.setEnabled(false);
 				xiaofeichaxun.setEnabled(false);
 				jiezhang.setEnabled(false);
-
-				kaitai.addActionListener(
-						ListenerKaitai(zhuotaiList.get(i), kaitai, cancelkaitai, orderitem, xiaofeichaxun, jiezhang));
-				cancelkaitai.addActionListener(ListenerCancelkaitai(zhuotaiList.get(i).getZtid(), kaitai, cancelkaitai,
-						orderitem, xiaofeichaxun, jiezhang));
-				orderitem.addActionListener(ListenerOrderitem(zhuotaiList.get(i).getZtid(), kaitai, cancelkaitai,
-						orderitem, xiaofeichaxun, jiezhang));
-				xiaofeichaxun.addActionListener(ListenerXiaofeichaxun(zhuotaiList.get(i).getZtid(), kaitai,
-						cancelkaitai, orderitem, xiaofeichaxun, jiezhang));
-				jiezhang.addActionListener(ListenerJiezhang(zhuotaiList.get(i).getZtid(), kaitai, cancelkaitai,
-						orderitem, xiaofeichaxun, jiezhang));
 			}
+			
+			deskLabel.setIcon(image1);
+			deskLabel.setBounds(0, 0, image1.getIconWidth(), image1.getIconHeight());
+			deskLabel.addMouseListener(caiDan(popupMenu));
+			panel7.add(deskLabel);
+			panel_right.add(panel7);
+			
+			kaitai.addActionListener(
+					ListenerKaitai(zhuotaiList.get(i), kaitai, cancelkaitai, orderitem, xiaofeichaxun, jiezhang));
+			cancelkaitai.addActionListener(ListenerCancelkaitai(zhuotaiList.get(i).getZtid(), kaitai, cancelkaitai,
+					orderitem, xiaofeichaxun, jiezhang));
+			orderitem.addActionListener(ListenerOrderitem(zhuotaiList.get(i), kaitai, cancelkaitai,
+					orderitem, xiaofeichaxun, jiezhang));
+			xiaofeichaxun.addActionListener(ListenerXiaofeichaxun(zhuotaiList.get(i).getZtid(), kaitai,
+					cancelkaitai, orderitem, xiaofeichaxun, jiezhang));
+			jiezhang.addActionListener(ListenerJiezhang(zhuotaiList.get(i), kaitai, cancelkaitai,
+					orderitem, xiaofeichaxun, jiezhang));
 		}
 
 		// 初始化滚动条
@@ -294,12 +283,12 @@ public class UserMainView extends JFrame {
 	 * 点/加菜
 	 * 
 	 **/
-	public ActionListener ListenerOrderitem(int id, JMenuItem kaitai, JMenuItem cancelkaitai, JMenuItem orderitem,
+	public ActionListener ListenerOrderitem(Zhuotai zhuotai, JMenuItem kaitai, JMenuItem cancelkaitai, JMenuItem orderitem,
 			JMenuItem xiaofeichaxun, JMenuItem jiezhang) {
 		ActionListener lis = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Order_itemView oim = new Order_itemView();
+				Order_itemView oim = new Order_itemView(zhuotai);
 				panel_right.add(oim);// 把指定的视图添加到桌面容器中
 				oim.toFront();// 视图显示在最前面
 				kaitai.setEnabled(false);
@@ -322,9 +311,10 @@ public class UserMainView extends JFrame {
 		ActionListener lis = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Order_itemView oim = new Order_itemView();
+				HZhuotaiManagerView hz=new HZhuotaiManagerView();
+//				Order_itemView oim = new Order_itemView();
 				// panel_right.add(oim);//把指定的视图添加到桌面容器中
-				oim.toFront();// 视图显示在最前面
+				hz.toFront();// 视图显示在最前面
 				kaitai.setEnabled(false);
 				cancelkaitai.setEnabled(false);
 				orderitem.setEnabled(true);
@@ -339,12 +329,12 @@ public class UserMainView extends JFrame {
 	 * 结账
 	 * 
 	 **/
-	public ActionListener ListenerJiezhang(int id, JMenuItem kaitai, JMenuItem cancelkaitai, JMenuItem orderitem,
+	public ActionListener ListenerJiezhang(Zhuotai zhuotai, JMenuItem kaitai, JMenuItem cancelkaitai, JMenuItem orderitem,
 			JMenuItem xiaofeichaxun, JMenuItem jiezhang) {
 		ActionListener lis = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JiezhangView jzv = new JiezhangView();
+				JiezhangView jzv = new JiezhangView(zhuotai);
 				// panel_right.add(jzv);//把指定的视图添加到桌面容器中
 				jzv.toFront();// 视图显示在最前面
 				kaitai.setEnabled(true);

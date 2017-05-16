@@ -27,102 +27,101 @@ import mmxresmis.entity.Zhuotai;
 
 public class JiezhangView extends JFrame {
 	private static final long serialVersionUID = -1062640286971674349L;
-	private JPanel panel_main=null;//主面板
-	private JPanel panel1=null;
-	private JPanel panel2=null;
-	private JPanel panel3=null;
-	private JPanel panel4=null;
-	private JPanel panel5=null;
-	private JPanel panel6=null;
-	
-	
-	private JTextArea ta_xianshi=null;
-    private JScrollPane sp=null;//滚动条
-	
-    private JLabel lb_roombjf;//包间费标签
+	private JPanel panel_main = null;// 主面板
+	private JPanel panel1 = null;
+	private JPanel panel2 = null;
+	private JPanel panel3 = null;
+	private JPanel panel4 = null;
+	private JPanel panel5 = null;
+	private JPanel panel6 = null;
+
+	private JTextArea ta_xianshi = null;
+	private JScrollPane sp = null;// 滚动条
+
+	private JLabel lb_roombjf;// 包间费标签
 	private JLabel lb_yingshou;
 	private JLabel lb_shishou;
 	private JLabel lb_zhaoling;
-	
-	private JTextField tf_roombjf;//包间费文本框
+
+	private JTextField tf_roombjf;// 包间费文本框
 	private JTextField tf_yingshou;
 	private JTextField tf_shishou;
 	private JTextField tf_zhaoling;
-	
-	private JButton btn_jiezhang=null;//结账按钮
-	private JButton btn_exit=null;
-	private List<Guestfood> gfList=null;	
-	private GuestfoodBiz guestfoodBiz=new  GuestfoodBizImpl();
+
+	private JButton btn_jiezhang = null;// 结账按钮
+	private JButton btn_exit = null;
+	private List<Guestfood> gfList = null;
+	private GuestfoodBiz guestfoodBiz = new GuestfoodBizImpl();
 	private Zhuotai zhuotai;
-	private JiezhangInfoTableModel infoTableModel=null;
+	private JiezhangInfoTableModel infoTableModel = null;
 	private JTable table;
-	
-	public JiezhangView(Zhuotai zhuotai){
-		this.zhuotai=zhuotai;
+
+	public JiezhangView(Zhuotai zhuotai) {
+		this.zhuotai = zhuotai;
 		init();
 	}
-		
-	private void init(){
-		this.setSize(700,420);//设置窗体大小
-		this.setResizable(false);//，不可拖动窗体大小
-//		this.setIconifiable(true);//JInternalFrame内嵌窗体，窗体可最小化
-//		this.setClosable(true);//窗体可被关闭
-//		this.setLocationRelativeTo(null);//窗体居中显示
+
+	private void init() {
+		this.setSize(700, 420);// 设置窗体大小
+		this.setResizable(false);// ，不可拖动窗体大小
+		// this.setIconifiable(true);//JInternalFrame内嵌窗体，窗体可最小化
+		// this.setClosable(true);//窗体可被关闭
+		// this.setLocationRelativeTo(null);//窗体居中显示
 		this.setTitle("结账窗口");// 设置标题
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//退出关闭窗体功能
-		//this.pack();//收缩窗体
-		
-		gfList=guestfoodBiz.queryGuestfood(zhuotai.getZhuotainum());
-		
-		//初始化面板
-	    panel_main=new JPanel(new GridLayout(6,1));//默认流式管理器
-	    //panel1.setLayout(new FlowLayout(FlowLayout.LEFT));
-	    panel1=new JPanel();
-	    panel2=new JPanel();
-		//panel2.setLayout(new FlowLayout(FlowLayout.LEFT));
-		panel3=new JPanel();
-		//panel3.setLayout(new FlowLayout(FlowLayout.LEFT));
-		panel4=new JPanel();
-		//panel4.setLayout(new FlowLayout(FlowLayout.LEFT));
-		panel5=new JPanel();
-		//panel5.setLayout(new FlowLayout(FlowLayout.LEFT));
-		panel6=new JPanel();
-		
-		//初始化控件
-		lb_roombjf=new JLabel("包间费");
-		lb_yingshou=new JLabel("总消费");
-		lb_shishou=new JLabel("实收款");
-		lb_zhaoling=new JLabel("找 零");
-		
-		tf_roombjf=new JTextField(8);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);// 退出关闭窗体功能
+		// this.pack();//收缩窗体
+
+		gfList = guestfoodBiz.queryGuestfood(zhuotai.getZhuotainum());
+
+		// 初始化面板
+		panel_main = new JPanel(new GridLayout(6, 1));// 默认流式管理器
+		// panel1.setLayout(new FlowLayout(FlowLayout.LEFT));
+		panel1 = new JPanel();
+		panel2 = new JPanel();
+		// panel2.setLayout(new FlowLayout(FlowLayout.LEFT));
+		panel3 = new JPanel();
+		// panel3.setLayout(new FlowLayout(FlowLayout.LEFT));
+		panel4 = new JPanel();
+		// panel4.setLayout(new FlowLayout(FlowLayout.LEFT));
+		panel5 = new JPanel();
+		// panel5.setLayout(new FlowLayout(FlowLayout.LEFT));
+		panel6 = new JPanel();
+
+		// 初始化控件
+		lb_roombjf = new JLabel("包间费");
+		lb_yingshou = new JLabel("总消费");
+		lb_shishou = new JLabel("实收款");
+		lb_zhaoling = new JLabel("找 零");
+
+		tf_roombjf = new JTextField(8);
 		tf_roombjf.setText(zhuotai.getZhuotaibjf());
 		tf_roombjf.setEditable(false);
-		tf_yingshou=new JTextField(8);
-		BigDecimal a=new BigDecimal("0");
+		tf_yingshou = new JTextField(8);
+		BigDecimal a = new BigDecimal("0");
 		for (Guestfood guestfood : gfList) {
-			a=a.add(guestfood.getFoodallprice());
+			a = a.add(guestfood.getFoodallprice());
 		}
 		System.out.println(a);
 		tf_yingshou.setText(a.toString());
 		tf_yingshou.setEditable(false);
-		tf_shishou=new JTextField(8);
-		tf_zhaoling=new JTextField(8);
-		
-		btn_jiezhang=new JButton("结账");
-		btn_exit=new JButton("取消");
-		
-		ta_xianshi=new JTextArea(5,50); 
-		sp=new JScrollPane(ta_xianshi);
-		
-		gfList=guestfoodBiz.queryGuestfood(zhuotai.getZhuotainum());
+		tf_shishou = new JTextField(8);
+		tf_zhaoling = new JTextField(8);
+
+		btn_jiezhang = new JButton("结账");
+		btn_exit = new JButton("取消");
+
+		ta_xianshi = new JTextArea(5, 50);
+		sp = new JScrollPane(ta_xianshi);
+
+		gfList = guestfoodBiz.queryGuestfood(zhuotai.getZhuotainum());
 		table = new JTable();
 		// 让JTable绑定数据模型呈现数据
 		refreshTable();
 		JScrollPane scrollPane = new JScrollPane(table);// 创建显示表格的滚动面板
-		scrollPane.setPreferredSize(new Dimension(650,800));
+		scrollPane.setPreferredSize(new Dimension(650, 800));
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
-		
-//		panel1.add(sp);
+
+		// panel1.add(sp);
 		panel1.add(scrollPane, BorderLayout.CENTER);
 		panel2.add(lb_roombjf);
 		panel2.add(tf_roombjf);
@@ -134,43 +133,43 @@ public class JiezhangView extends JFrame {
 		panel5.add(tf_zhaoling);
 		panel6.add(btn_jiezhang);
 		panel6.add(btn_exit);
-		
+
 		panel_main.add(panel1);
-	    panel_main.add(panel2);
-	    panel_main.add(panel3);
+		panel_main.add(panel2);
+		panel_main.add(panel3);
 		panel_main.add(panel4);
 		panel_main.add(panel5);
 		panel_main.add(panel6);
-		 
-		this.getContentPane().add(panel_main);//内容面板
-		this.setVisible(true);//显示窗体
-		}
-	
-	
+
+		this.getContentPane().add(panel_main);// 内容面板
+		this.setVisible(true);// 显示窗体
+	}
+
 	/**
 	 * 计算每份菜总价钱
-	 * **/
-	public FocusListener focus(){
+	 **/
+	public FocusListener focus() {
 		return new FocusListener() {
-			
+
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				if("".equals(tf_foodsum.getText().trim())){
+				if ("".equals(tf_foodsum.getText().trim())) {
 					tf_foodsum.setText("1");
 				}
-				int count=Integer.valueOf(tf_foodsum.getText().trim());
-				int price=Integer.valueOf(tf_foodprice.getText().trim());
-				tf_foodallprice.setText(count*price+"");
-//				System.out.println("失去");
+				int count = Integer.valueOf(tf_foodsum.getText().trim());
+				int price = Integer.valueOf(tf_foodprice.getText().trim());
+				tf_foodallprice.setText(count * price + "");
+				// System.out.println("失去");
 			}
-			
+
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				// TODO Auto-generated method stub
-//				System.out.println("获得");
+				// System.out.println("获得");
 			}
-		}; 
+		};
 	}
+
 	private class JiezhangInfoTableModel implements TableModel {
 		private List<Guestfood> fList = null;
 
@@ -190,7 +189,7 @@ public class JiezhangView extends JFrame {
 			return 7;
 		}
 
-		// 设置JTable的显示的列名 菜号", "菜名", "服务员号", "单价", "数量", "总价" 
+		// 设置JTable的显示的列名 菜号", "菜名", "服务员号", "单价", "数量", "总价"
 		@Override
 		public String getColumnName(int columnIndex) {
 			if (columnIndex == 0) {
@@ -199,15 +198,15 @@ public class JiezhangView extends JFrame {
 				return "菜名";
 			} else if (columnIndex == 2) {
 				return "服务员号";
-			}else if (columnIndex == 3) {
+			} else if (columnIndex == 3) {
 				return "单价";
-			}else if (columnIndex == 4) {
+			} else if (columnIndex == 4) {
 				return "数量";
-			}else if (columnIndex == 5) {
+			} else if (columnIndex == 5) {
 				return "总价";
-			}else if (columnIndex == 6) {
+			} else if (columnIndex == 6) {
 				return "提交时间";
-			}else {
+			} else {
 				return "出错";
 			}
 		}
@@ -267,17 +266,16 @@ public class JiezhangView extends JFrame {
 
 	// 刷新JTable并显示数据
 	private void refreshTable() {
-		gfList=guestfoodBiz.queryGuestfood(zhuotai.getZhuotainum());
+		gfList = guestfoodBiz.queryGuestfood(zhuotai.getZhuotainum());
 		infoTableModel = new JiezhangInfoTableModel(gfList);
 		table.setModel(infoTableModel);
 	}
+
 	/**
-	 * 关闭窗口 
-	 * **/
-	private void close(){
+	 * 关闭窗口
+	 **/
+	private void close() {
 		this.dispose();
 	}
-	
-	
-	
+
 }

@@ -6,7 +6,7 @@ public class Test {
 
 	public static void main(String[] args) {
 
-		new LoginView();
+		new LoginView(); 
 		// new UserRegisterView();
 		// new KaitaiView();
 		// new Order_itemView();

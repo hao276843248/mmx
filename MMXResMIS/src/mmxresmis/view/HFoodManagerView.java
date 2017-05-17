@@ -144,7 +144,7 @@ public class HFoodManagerView extends JInternalFrame {
 					f.setFoodnum(textField3.getText());
 					f.setFoodname(textField4.getText());
 					f.setFoodprice(new BigDecimal(textField5.getText()));
-					foootbiz.addFood(f);
+					foootbiz .addFood(f);
 				}
 				foods = foootbiz.findAllFood();
 				refreshTable(foods);

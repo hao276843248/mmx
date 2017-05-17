@@ -18,13 +18,13 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.event.TableModelListener;
@@ -49,16 +49,16 @@ import mmxresmis.entity.Foodtype;
 import mmxresmis.entity.Guestfood;
 import mmxresmis.entity.Zhuotai;
 
-public class Order_itemView extends JFrame {
+public class Order_itemView extends JInternalFrame {
 	private static final long serialVersionUID = 2123698427305956225L;
-	// private JPanel btn_panel=null;//按钮组面板
-	private JPanel panel_left = null;
+	private JPanel panel_left = null;//左面板
 	private JPanel panel_right = null;
+	private JPanel paneldiancai = null;
+	private JPanel panelbutton = null;
+	private JPanel panelxiangqing = null;
 	private JPanel panel1 = null;
 	private JPanel panel2 = null;
 	private JPanel panel3 = null;
-	private JPanel panel4 = null;
-	private JPanel panel5 = null;
 
 	private JSplitPane splitPane = null;// 分割容器类
 
@@ -67,14 +67,14 @@ public class Order_itemView extends JFrame {
 	private DefaultMutableTreeNode root = null;// 根节点
 
 	private JLabel lb_foodnum;// 菜号标签
-	private JLabel lb_foodname;
-	private JLabel lb_wnum;
-	private JLabel lb_beizhu;
-	private JLabel lb_foodprice;
-	private JLabel lb_foodsum;
-	private JLabel lb_foodallprice;
+	private JLabel lb_foodname;//菜名
+	private JLabel lb_wnum;//服务员号
+	private JLabel lb_beizhu;//备注
+	private JLabel lb_foodprice;//菜品单价
+	private JLabel lb_foodsum;//数量
+	private JLabel lb_foodallprice;//总价
 
-	private JTextField tf_foodnum = null;// 菜号下拉列表框
+	private JTextField tf_foodnum = null;// 菜号文本框
 	private JTextField tf_foodname = null;
 	private JTextField tf_wnum = null;
 	private JTextField tf_beizhu = null;
@@ -84,9 +84,9 @@ public class Order_itemView extends JFrame {
 
 	private JButton btn_equal = null;// 等于按钮
 	private JButton btn_insert = null;// 新增按钮
-	private JButton btn_delete = null;
-	private JButton btn_submit = null;
-	private JButton btn_exit = null;
+	private JButton btn_delete = null;//删除
+	private JButton btn_submit = null;//确认
+	private JButton btn_exit = null;//退出
 
 	private DefaultTableModel tableModel = null;// 表格模型
 	private JTable table = null;// 表格对象
@@ -100,7 +100,7 @@ public class Order_itemView extends JFrame {
 	private UserFoodInfoTableModel infoTableModel=null;
 	private GuestfoodBiz guestfoodBiz=new  GuestfoodBizImpl();
 	private List<Guestfood> gfList=null;		
-	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//获取当前日期
 	
 	// private JLabel deskLabel=null;
 
@@ -111,13 +111,13 @@ public class Order_itemView extends JFrame {
 	}
 
 	private void init() {
-		this.setSize(950, 600);// 设置窗体大小
+//		this.setSize(950, 600);// 设置窗体大小
 		this.setResizable(false);// 不可拖动窗体大小
-		// this.setClosable(true);//窗体可被关闭
-		// this.setIconifiable(true);//JInternalFrame内嵌窗体，窗体可最小化
+		this.setClosable(true);//窗体可被关闭
+		this.setIconifiable(true);//JInternalFrame内嵌窗体，窗体可最小化
 		// this.setLocationRelativeTo(null);//窗体居中显示
 		this.setTitle("点/加菜窗口");// 设置标题
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 退出关闭窗体功能
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);// 退出关闭窗体功能
 
 		foods = foodBiz.findAllFood();
 		foodtypes = foodtypeBiz.findallFoodtype();
@@ -155,20 +155,13 @@ public class Order_itemView extends JFrame {
 		// 设置选时或不选时，文字的变化颜色
 		cellRenderer.setTextNonSelectionColor(Color.black);
 		cellRenderer.setTextSelectionColor(Color.blue);
+		
+		
+		
 		// 初始化面板
-		panel_left = new JPanel(new GridLayout(1, 1, 0, 0));
-		panel_right = new JPanel(new GridLayout(6, 1, 5, 10));// 后两个参数表格水平垂直间距
-		panel1 = new JPanel();
-		panel1.setLayout(new FlowLayout(FlowLayout.LEFT));
-		panel2 = new JPanel();
-		panel2.setLayout(new FlowLayout(FlowLayout.LEFT));
-		panel3 = new JPanel();
-		panel3.setLayout(new FlowLayout(FlowLayout.LEFT));
-		panel4 = new JPanel();
-		panel4.setLayout(new FlowLayout(FlowLayout.LEFT));
-		panel5 = new JPanel();
-		panel5.setLayout(new FlowLayout(FlowLayout.LEFT));
-
+		panel_left = new JPanel(new GridLayout(1, 1, 0, 0));	
+		panel_right =new JPanel(new BorderLayout());
+		
 		// 初始化分割线
 		splitPane = new JSplitPane();
 		splitPane.setDividerSize(10);// 设置分隔线大小
@@ -189,8 +182,7 @@ public class Order_itemView extends JFrame {
 		tf_wnum = new JTextField(8);
 		tf_wnum.setText(zhuotai.getWname());
 		tf_wnum.setEditable(false);
-		
-		
+				
 		tf_beizhu = new JTextField(8);
 		tf_foodprice = new JTextField(8);
 		tf_foodprice.setEditable(false);
@@ -218,11 +210,18 @@ public class Order_itemView extends JFrame {
 		// 让JTable绑定数据模型呈现数据
 		refreshTable();
 		scrollPane = new JScrollPane(table);// 创建显示表格的滚动面板
-		scrollPane.setPreferredSize(new Dimension(650,800));
-		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		scrollPane.setPreferredSize(new Dimension(400,200));
 		
+		paneldiancai = new JPanel(new GridLayout(3, 1, 5, 10));	
+		panel_right.add(paneldiancai, BorderLayout.NORTH);
+		panel1 = new JPanel();
+		panel1.setLayout(new FlowLayout(FlowLayout.LEFT));
+		panel2 = new JPanel();
+		panel2.setLayout(new FlowLayout(FlowLayout.LEFT));
+		panel3 = new JPanel();
+		panel3.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
-		// 把空间驾到相应位置上
+		panel1.add(btn_insert);
 		panel1.add(lb_foodnum);
 		panel1.add(tf_foodnum);
 		panel1.add(lb_foodname);
@@ -238,19 +237,23 @@ public class Order_itemView extends JFrame {
 		panel3.add(btn_equal);
 		panel3.add(lb_foodallprice);
 		panel3.add(tf_foodallprice);
-		panel4.add(btn_insert);
-		panel4.add(btn_delete);
-		panel4.add(btn_submit);
-		panel4.add(btn_exit);
-		panel5.add(scrollPane, BorderLayout.CENTER);
-
+		
+		paneldiancai.add(panel1);
+		paneldiancai.add(panel2);
+		paneldiancai.add(panel3);
+		
+		panelbutton = new JPanel(new GridLayout(1, 4, 5, 10));	
+		panel_right.add(panelbutton, BorderLayout.CENTER);
+		panelbutton.add(btn_insert);
+		panelbutton.add(btn_delete);
+		panelbutton.add(btn_submit);
+		panelbutton.add(btn_exit);
+		
+		panelxiangqing = new JPanel(new BorderLayout());
+		panelxiangqing.add(scrollPane);
+		panel_right.add(panelxiangqing,BorderLayout.SOUTH);
+		
 		panel_left.add(tree);
-		panel_right.add(panel1);
-		panel_right.add(panel2);
-		panel_right.add(panel3);
-		panel_right.add(panel4);
-		panel_right.add(panel5);
-
 		tf_foodsum.addFocusListener(focus());
 		
 		splitPane.setLeftComponent(panel_left);// 将panel_left放到分割线左边，panel_right放到右边

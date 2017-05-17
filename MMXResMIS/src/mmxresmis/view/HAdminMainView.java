@@ -45,7 +45,7 @@ public class HAdminMainView extends JFrame {
 
 	private JMenu syMenu = null;// 系统首页菜单
 	private JMenu xgMenu = null;// 修改密码管理菜单
-	private JMenu ctMenu = null;// 餐厅信息管理菜单
+	private JMenu waiterMenu = null;// 服务员信息管理菜单
 	private JMenu yhMenu = null;// 用户信息管理菜单
 	private JMenu cpMenu = null;// 菜品信息管理菜单
 	private JMenu ddMenu = null;// 订单信息管理
@@ -53,7 +53,7 @@ public class HAdminMainView extends JFrame {
 
 	private JMenuItem syMenuItem = null;
 	private JMenuItem xgMenuItem = null;
-	private JMenuItem ctMenuItem = null;
+	private JMenuItem waiterMenuItem = null;
 	private JMenuItem yhMenuItem = null;
 	private JMenuItem foodMenuItem = null;
 	private JMenuItem foodtypeMenuItem = null;
@@ -132,7 +132,7 @@ public class HAdminMainView extends JFrame {
 		// 初始化菜单
 		syMenu = new JMenu("系统首页");
 		xgMenu = new JMenu("修改密码管理");
-		ctMenu = new JMenu("餐厅信息管理");
+		waiterMenu = new JMenu("服务员信息管理");
 		yhMenu = new JMenu("用户信息管理");
 		cpMenu = new JMenu("菜品信息管理");
 		ddMenu = new JMenu("订单信息管理");
@@ -140,7 +140,7 @@ public class HAdminMainView extends JFrame {
 
 		syMenuItem = new JMenuItem("系统首页");
 		xgMenuItem = new JMenuItem("修改密码管理");
-		ctMenuItem = new JMenuItem("餐厅信息管理");
+		waiterMenuItem = new JMenuItem("服务员信息管理");
 		yhMenuItem = new JMenuItem("用户信息管理");
 		foodMenuItem = new JMenuItem("菜品信息管理");
 		foodtypeMenuItem = new JMenuItem("菜品类型信息管理");
@@ -163,7 +163,7 @@ public class HAdminMainView extends JFrame {
 		// 把控件加到相应的位置上
 		syMenu.add(syMenuItem);
 		xgMenu.add(xgMenuItem);
-		ctMenu.add(ctMenuItem);
+		waiterMenu.add(waiterMenuItem);
 		yhMenu.add(yhMenuItem);
 		cpMenu.add(foodMenuItem);
 		cpMenu.add(foodtypeMenuItem);
@@ -172,7 +172,7 @@ public class HAdminMainView extends JFrame {
 
 		mBar.add(syMenu);
 		mBar.add(xgMenu);
-		mBar.add(ctMenu);
+		mBar.add(waiterMenu);
 		mBar.add(yhMenu);
 		mBar.add(cpMenu);
 		mBar.add(ddMenu);
@@ -212,6 +212,15 @@ public class HAdminMainView extends JFrame {
 	}
 
 	private void registerListener() {
+		waiterMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				HWaiterManagerView Hwaiterv = new HWaiterManagerView();
+				panel_right.add(Hwaiterv);// 把指定的视图添加到桌面容器中
+				Hwaiterv.toFront();// 视图显示在最前面
+			}
+		});
+		
 		yhMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -248,7 +257,8 @@ public class HAdminMainView extends JFrame {
 
 			}
 		});
-
+		
+	
 		panel_right.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

@@ -67,6 +67,7 @@ public class HUserManagerView extends JInternalFrame {
 		table = new JTable();
 		// 让JTable绑定数据模型呈现数据
 		refreshTable(uList);
+		
 		paneltable = new JPanel(new BorderLayout());// 创建面板
 //		table = new JTable();
 		// 给面板设置边框

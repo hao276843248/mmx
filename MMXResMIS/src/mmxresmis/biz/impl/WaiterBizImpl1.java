@@ -1,12 +1,19 @@
 package mmxresmis.biz.impl;
 
+import java.util.List;
+
 import mmxresmis.biz.WaiterBiz;
 import mmxresmis.dao.WaiterDao;
 import mmxresmis.dao.impl.WaiterDaoImpl;
 import mmxresmis.entity.Waiter;
 
 public class WaiterBizImpl1 implements WaiterBiz {
-	 private WaiterDao waiterDao=null;
+	 @Override
+	public List<Waiter> findallWaiter() {
+			return waiterDao.findAllWaiter();
+	}
+
+	private WaiterDao waiterDao=null;
 	 public WaiterBizImpl1(){
 			waiterDao=new WaiterDaoImpl();
 	 } 

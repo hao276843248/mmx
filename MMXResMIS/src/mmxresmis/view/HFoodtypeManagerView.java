@@ -58,7 +58,7 @@ public class HFoodtypeManagerView extends JInternalFrame {
 		// 让JTable绑定数据模型呈现数据
 		refreshTable(foods);
 		scrollPane = new JScrollPane(table);// 创建显示表格的滚动面板
-		scrollPane.setPreferredSize(new Dimension(200,200));
+		scrollPane.setPreferredSize(new Dimension(400,200));
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
 		

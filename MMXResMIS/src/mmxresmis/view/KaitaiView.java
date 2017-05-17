@@ -5,11 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,7 +19,7 @@ import mmxresmis.biz.ZhuotaiBiz;
 import mmxresmis.biz.impl.ZhuotaiBizImpl;
 import mmxresmis.entity.Zhuotai;
 
-public class KaitaiView extends JFrame {
+public class KaitaiView extends JInternalFrame {
 	private static final long serialVersionUID = -8546047454814393569L;
 	private JPanel panel_main = null;// 主面板
 	private JPanel panel_left = null;// 左侧面板
@@ -58,8 +58,8 @@ public class KaitaiView extends JFrame {
 	private void init() {
 		this.setSize(560, 280);// 设置窗体大小
 		this.setResizable(false);// 不可拖动窗体大小
-		// this.setClosable(true);//窗体可被关闭
-		// this.setIconifiable(true);//JInternalFrame内嵌窗体，窗体可最小化
+		this.setClosable(true);//窗体可被关闭
+	    this.setIconifiable(true);//JInternalFrame内嵌窗体，窗体可最小化
 		// this.setLocationRelativeTo(null);//窗体居中显示
 		this.setTitle("开台窗口");// 设置标题
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);// 退出关闭窗体功能

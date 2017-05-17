@@ -4,9 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mmxresmis.dao.WaiterDao;
+import mmxresmis.entity.Food;
 import mmxresmis.entity.Waiter;
 
 public class WaiterDaoImpl extends BaseDao implements WaiterDao {
+
+	@Override
+	public List<Waiter> findAllWaiter() {
+		
+		
+		List<Waiter> wList=null;
+		String sql="select fid,foodtype,foodnum,foodname,foodprice from food ";
+		try {
+			wList=this.operQuery(sql,null,Waiter.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return wList;
+	}
 
 	@Override
 	public boolean saveWaiter(Waiter waiter) {
